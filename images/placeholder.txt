@@ -1,0 +1,7 @@
+This directory should contain the following image files:
+
+1. logo.png - The Travel Assistant logo
+2. user-avatar.png - User profile avatar
+3. ai-avatar.png - AI assistant avatar
+
+For a complete implementation, you would need to add these image files to this directory.

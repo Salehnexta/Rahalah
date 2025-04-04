@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Rahalah - Travel Assistant</title>
+    <link rel="stylesheet" href="css/styles.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Tajawal:wght@300;400;500;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+</head>
+<body>
+    <div class="app-container">
+        <!-- Sidebar -->
+        <div class="sidebar">
+            <div class="sidebar-header">
+                <img src="images/logo.png" alt="Travel Assistant Logo" class="logo">
+                <h1 class="en">Rahalah</h1>
+                <h1 class="ar">رحلة</h1>
+            </div>
+            
+            <div class="language-toggle">
+                <button class="lang-btn active" data-lang="en">English</button>
+                <button class="lang-btn" data-lang="ar">العربية</button>
+            </div>
+            
+            <div class="new-chat">
+                <button id="new-chat-btn" class="en">
+                    <i class="fas fa-plus"></i> New Chat
+                </button>
+                <button id="new-chat-btn-ar" class="ar">
+                    <i class="fas fa-plus"></i> محادثة جديدة
+                </button>
+            </div>
+            
+            <div class="conversation-types">
+                <div class="conversation-type active" data-type="flights">
+                    <i class="fas fa-plane"></i> <span class="en">Flight Search</span><span class="ar">بحث الرحلات</span>
+                </div>
+                <div class="conversation-type" data-type="hotels">
+                    <i class="fas fa-hotel"></i> <span class="en">Hotel Search</span><span class="ar">بحث الفنادق</span>
+                </div>
+            </div>
+            
+            <div class="history">
+                <h3 class="en">Recent Conversations</h3>
+                <h3 class="ar">المحادثات الأخيرة</h3>
+                <ul class="history-list">
+                    <li>
+                        <i class="fas fa-comment"></i>
+                        <span>DMM to RUH flights</span>
+                    </li>
+                    <li>
+                        <i class="fas fa-comment"></i>
+                        <span>Bangkok hotels under $100</span>
+                    </li>
+                </ul>
+            </div>
+            
+            <div class="user-info">
+                <div class="user-avatar">
+                    <img src="images/user-avatar.png" alt="User Avatar">
+                </div>
+                <div class="user-name">John Doe</div>
+            </div>
+        </div>
+        
+        <!-- Main Content -->
+        <div class="main-content">
+            <div class="chat-container">
+                <!-- Welcome Message -->
+                <div class="welcome-container active" id="welcome-screen">
+                    <h1 class="en">Rahalah</h1>
+                    <h1 class="ar">رحلة</h1>
+                    <p class="en">Your AI-powered travel planning SaaS</p>
+                    <p class="ar">منصة الذكاء الاصطناعي لتخطيط رحلاتك</p>
+                    
+                    <div class="conversation-options">
+                        <div class="option-card" data-type="flights">
+                            <div class="option-icon">
+                                <i class="fas fa-plane"></i>
+                            </div>
+                            <h3 class="en">Flight Search</h3>
+                            <h3 class="ar">بحث الرحلات</h3>
+                            <p class="en">Find the best flights for your next trip</p>
+                            <p class="ar">ابحث عن أفضل الرحلات لرحلتك القادمة</p>
+                            <div class="example-prompts">
+                                <div class="example-prompt" data-prompt="Find flights from Dammam to Riyadh for tomorrow">
+                                    <i class="fas fa-arrow-right"></i> Find flights from Dammam to Riyadh for tomorrow
+                                </div>
+                                <div class="example-prompt" data-prompt="What's the cheapest flight from Jeddah to Dubai next week?">
+                                    <i class="fas fa-arrow-right"></i> What's the cheapest flight from Jeddah to Dubai next week?
+                                </div>
+                                <div class="example-prompt" data-prompt="I need a round-trip flight from Riyadh to London in June">
+                                    <i class="fas fa-arrow-right"></i> I need a round-trip flight from Riyadh to London in June
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="option-card" data-type="hotels">
+                            <div class="option-icon">
+                                <i class="fas fa-hotel"></i>
+                            </div>
+                            <h3 class="en">Hotel Search</h3>
+                            <h3 class="ar">بحث الفنادق</h3>
+                            <p class="en">Discover perfect accommodations anywhere</p>
+                            <p class="ar">اكتشف أماكن إقامة مثالية في أي مكان</p>
+                            <div class="example-prompts">
+                                <div class="example-prompt" data-prompt="Find 5-star hotels in Bangkok under $200 per night">
+                                    <i class="fas fa-arrow-right"></i> Find 5-star hotels in Bangkok under $200 per night
+                                </div>
+                                <div class="example-prompt" data-prompt="I need a family-friendly hotel in Jeddah near the beach">
+                                    <i class="fas fa-arrow-right"></i> I need a family-friendly hotel in Jeddah near the beach
+                                </div>
+                                <div class="example-prompt" data-prompt="What are the best boutique hotels in Riyadh city center?">
+                                    <i class="fas fa-arrow-right"></i> What are the best boutique hotels in Riyadh city center?
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Chat Messages -->
+                <div class="messages" id="chat-messages">
+                    <!-- Messages will be added here by JavaScript -->
+                </div>
+            </div>
+            
+            <!-- Input Area -->
+            <div class="input-container">
+                <div class="input-box">
+                    <textarea id="user-input" placeholder="Message Travel Assistant..." data-ar-placeholder="مراسلة مساعد السفر..."></textarea>
+                    <button id="send-btn">
+                        <i class="fas fa-paper-plane"></i>
+                    </button>
+                </div>
+                <div class="input-footer">
+                    <p class="en">© 2025 Rahalah - AI-powered travel planning SaaS</p>
+                    <p class="ar">© 2025 رحلة - منصة الذكاء الاصطناعي لتخطيط السفر</p>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <script src="js/script.js"></script>
+</body>
+</html>
