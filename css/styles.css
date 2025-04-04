@@ -38,6 +38,24 @@ body.rtl {
     display: flex;
     height: 100vh;
     width: 100%;
+    position: relative;
+}
+
+/* Corner Photo Styles */
+.corner-photo {
+    position: absolute;
+    top: 0;
+    right: 0;
+    z-index: 10;
+    width: 100px;
+    height: 100px;
+    overflow: hidden;
+}
+
+.corner-photo img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
 }
 
 /* Sidebar Styles */
@@ -55,11 +73,17 @@ body.rtl {
     align-items: center;
     padding: 10px 0;
     margin-bottom: 20px;
+    flex-wrap: wrap;
+}
+
+.brand-text {
+    display: flex;
+    flex-direction: column;
 }
 
 .logo {
-    width: 30px;
-    height: 30px;
+    width: 120px;
+    height: auto;
     margin-right: 10px;
 }
 
@@ -201,6 +225,12 @@ body.rtl {
     display: flex;
 }
 
+.welcome-logo {
+    width: 200px;
+    height: auto;
+    margin-bottom: 20px;
+}
+
 .welcome-container h1 {
     font-size: 32px;
     margin-bottom: 10px;
@@ -282,7 +312,38 @@ body.rtl {
     font-size: 12px;
 }
 
-/* Messages */
+/* Chat Messages */
+.message {
+    display: flex;
+    margin-bottom: 20px;
+    animation: fadeIn 0.3s ease-in-out;
+}
+
+/* View Offers Button */
+.view-offers-btn {
+    display: inline-block;
+    background: linear-gradient(135deg, #00a67e, #007c5f);
+    color: white;
+    padding: 12px 24px;
+    border-radius: 50px;
+    text-decoration: none;
+    font-weight: bold;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    transition: all 0.3s ease;
+    text-align: center;
+    margin-top: 15px;
+}
+
+.view-offers-btn:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.15);
+    background: linear-gradient(135deg, #007c5f, #00a67e);
+}
+
+.view-offers-btn i {
+    margin-right: 8px;
+}
+
 .messages {
     display: flex;
     flex-direction: column;
@@ -290,6 +351,7 @@ body.rtl {
     max-width: 800px;
     margin: 0 auto;
     width: 100%;
+    padding-bottom: 20px;
 }
 
 .message {
@@ -298,6 +360,7 @@ body.rtl {
     padding: 20px;
     border-radius: 10px;
     animation: fadeIn 0.3s ease;
+    margin-bottom: 10px;
 }
 
 @keyframes fadeIn {
@@ -307,6 +370,7 @@ body.rtl {
 
 .message.ai {
     background-color: var(--message-ai-bg);
+    border-left: 3px solid var(--primary-color);
 }
 
 .message.human {
@@ -317,7 +381,7 @@ body.rtl {
 .message-avatar {
     width: 30px;
     height: 30px;
-    border-radius: 5px;
+    border-radius: 50%;
     overflow: hidden;
     flex-shrink: 0;
 }
@@ -351,6 +415,7 @@ body.rtl {
 .message-text {
     font-size: 14px;
     line-height: 1.6;
+    color: var(--text-color);
 }
 
 .message-text p {
@@ -359,6 +424,68 @@ body.rtl {
 
 .message-text p:last-child {
     margin-bottom: 0;
+}
+
+/* Typing Indicator */
+.typing-indicator {
+    display: none;
+    align-items: center;
+    gap: 15px;
+    padding: 15px 20px;
+    max-width: 800px;
+    margin: 0 auto 20px auto;
+    width: 100%;
+    animation: fadeIn 0.3s ease;
+}
+
+.typing-indicator.active {
+    display: flex;
+}
+
+.typing-avatar {
+    width: 30px;
+    height: 30px;
+    border-radius: 50%;
+    overflow: hidden;
+    flex-shrink: 0;
+}
+
+.typing-dots {
+    display: flex;
+    align-items: center;
+    gap: 4px;
+}
+
+.typing-dots span {
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+    background-color: var(--primary-color);
+    opacity: 0.6;
+    animation: typingAnimation 1.4s infinite ease-in-out;
+}
+
+.typing-dots span:nth-child(1) {
+    animation-delay: 0s;
+}
+
+.typing-dots span:nth-child(2) {
+    animation-delay: 0.2s;
+}
+
+.typing-dots span:nth-child(3) {
+    animation-delay: 0.4s;
+}
+
+@keyframes typingAnimation {
+    0%, 100% {
+        transform: scale(0.8);
+        opacity: 0.6;
+    }
+    50% {
+        transform: scale(1.2);
+        opacity: 1;
+    }
 }
 
 /* Input Area */
