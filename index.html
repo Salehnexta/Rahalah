@@ -1,0 +1,233 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Rahalah - Travel Assistant</title>
+    <link rel="stylesheet" href="css/styles.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Tajawal:wght@300;400;500;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+</head>
+<body>
+    <div class="app-container">
+        <!-- Corner Photo -->
+        <div class="corner-photo">
+            <svg width="100" height="100" viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
+  <rect width="100" height="100" fill="#10a37f"/>
+  <circle cx="50" cy="50" r="30" fill="white" opacity="0.2"/>
+  <path d="M50,20 L60,40 L80,45 L65,60 L70,80 L50,70 L30,80 L35,60 L20,45 L40,40 Z" fill="white"/>
+</svg>
+        </div>
+        
+        <!-- Sidebar -->
+        <div class="sidebar">
+            <div class="sidebar-header">
+                <svg class="logo" width="120" height="40" viewBox="0 0 120 40" xmlns="http://www.w3.org/2000/svg">
+  <rect width="120" height="40" fill="white"/>
+  <polygon points="10,20 20,10 30,20 20,30" fill="#0088cc"/>
+  <text x="40" y="25" font-family="Arial" font-size="16" font-weight="bold">NextG</text>
+</svg>
+                <div class="brand-text">
+                    <h1 class="en">Rahalah</h1>
+                    <h1 class="ar">رحلة</h1>
+                </div>
+            </div>
+            
+            <div class="language-toggle">
+                <button class="lang-btn active" data-lang="en">English</button>
+                <button class="lang-btn" data-lang="ar">العربية</button>
+            </div>
+            
+            <div class="new-chat">
+                <button id="new-chat-btn" class="en">
+                    <i class="fas fa-plus"></i> New Chat
+                </button>
+                <button id="new-chat-btn-ar" class="ar">
+                    <i class="fas fa-plus"></i> محادثة جديدة
+                </button>
+            </div>
+            
+            <div class="conversation-types">
+                <div class="conversation-type active" data-type="flights">
+                    <i class="fas fa-plane"></i> <span class="en">Flight Search</span><span class="ar">بحث الرحلات</span>
+                </div>
+                <div class="conversation-type" data-type="hotels">
+                    <i class="fas fa-hotel"></i> <span class="en">Hotel Search</span><span class="ar">بحث الفنادق</span>
+                </div>
+                <div class="conversation-type" data-type="packages">
+                    <i class="fas fa-suitcase"></i> <span class="en">Trip Packages</span><span class="ar">باقات السفر</span>
+                </div>
+                <div class="conversation-type" data-type="cars">
+                    <i class="fas fa-car"></i> <span class="en">Car Rentals</span><span class="ar">تأجير سيارات</span>
+                </div>
+            </div>
+            
+            <div class="history">
+                <h3 class="en">Recent Conversations</h3>
+                <h3 class="ar">المحادثات الأخيرة</h3>
+                <ul class="history-list">
+                    <li>
+                        <i class="fas fa-comment"></i>
+                        <span>DMM to RUH flights</span>
+                    </li>
+                    <li>
+                        <i class="fas fa-comment"></i>
+                        <span>Bangkok hotels under $100</span>
+                    </li>
+                </ul>
+            </div>
+            
+            <div class="user-info">
+                <div class="user-avatar">
+                    <svg width="30" height="30" viewBox="0 0 30 30" xmlns="http://www.w3.org/2000/svg">
+  <circle cx="15" cy="15" r="15" fill="#343541"/>
+  <circle cx="15" cy="10" r="5" fill="#6e6e80"/>
+  <path d="M15,16 C9,16 7,20 7,24 L23,24 C23,20 21,16 15,16 Z" fill="#6e6e80"/>
+</svg>
+                </div>
+                <div class="user-name">John Doe</div>
+            </div>
+        </div>
+        
+        <!-- Main Content -->
+        <div class="main-content">
+            <div class="chat-container">
+                <!-- Welcome Message -->
+                <div class="welcome-container active" id="welcome-screen">
+                    <svg class="welcome-logo" width="200" height="60" viewBox="0 0 200 60" xmlns="http://www.w3.org/2000/svg">
+  <rect width="200" height="60" fill="white"/>
+  <polygon points="20,30 35,15 50,30 35,45" fill="#0088cc"/>
+  <text x="60" y="38" font-family="Arial" font-size="24" font-weight="bold">NextG</text>
+</svg>
+                    <h1 class="en">Rahalah</h1>
+                    <h1 class="ar">رحلة</h1>
+                    <p class="en">Your AI-powered travel planning SaaS</p>
+                    <p class="ar">منصة الذكاء الاصطناعي لتخطيط رحلاتك</p>
+                    
+                    <div class="conversation-options">
+                        <div class="option-card" data-type="flights">
+                            <div class="option-icon">
+                                <i class="fas fa-plane"></i>
+                            </div>
+                            <h3 class="en">Flight Search</h3>
+                            <h3 class="ar">بحث الرحلات</h3>
+                            <p class="en">Find the best flights for your next trip</p>
+                            <p class="ar">ابحث عن أفضل الرحلات لرحلتك القادمة</p>
+                            <div class="example-prompts">
+                                <div class="example-prompt" data-prompt="Find flights from Dammam to Riyadh for tomorrow">
+                                    <i class="fas fa-arrow-right"></i> Find flights from Dammam to Riyadh for tomorrow
+                                </div>
+                                <div class="example-prompt" data-prompt="What's the cheapest flight from Jeddah to Dubai next week?">
+                                    <i class="fas fa-arrow-right"></i> What's the cheapest flight from Jeddah to Dubai next week?
+                                </div>
+                                <div class="example-prompt" data-prompt="I need a round-trip flight from Riyadh to London in June">
+                                    <i class="fas fa-arrow-right"></i> I need a round-trip flight from Riyadh to London in June
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="option-card" data-type="hotels">
+                            <div class="option-icon">
+                                <i class="fas fa-hotel"></i>
+                            </div>
+                            <h3 class="en">Hotel Search</h3>
+                            <h3 class="ar">بحث الفنادق</h3>
+                            <p class="en">Discover perfect accommodations anywhere</p>
+                            <p class="ar">اكتشف أماكن إقامة مثالية في أي مكان</p>
+                            <div class="example-prompts">
+                                <div class="example-prompt" data-prompt="Find 5-star hotels in Bangkok under $200 per night">
+                                    <i class="fas fa-arrow-right"></i> Find 5-star hotels in Bangkok under $200 per night
+                                </div>
+                                <div class="example-prompt" data-prompt="I need a family-friendly hotel in Jeddah near the beach">
+                                    <i class="fas fa-arrow-right"></i> I need a family-friendly hotel in Jeddah near the beach
+                                </div>
+                                <div class="example-prompt" data-prompt="What are the best boutique hotels in Riyadh city center?">
+                                    <i class="fas fa-arrow-right"></i> What are the best boutique hotels in Riyadh city center?
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="option-card" data-type="packages">
+                            <div class="option-icon">
+                                <i class="fas fa-suitcase"></i>
+                            </div>
+                            <h3 class="en">Trip Packages</h3>
+                            <h3 class="ar">باقات السفر</h3>
+                            <p class="en">Design custom travel packages based on your budget</p>
+                            <p class="ar">صمم باقات سفر مخصصة بناءً على ميزانيتك</p>
+                            <div class="example-prompts">
+                                <div class="example-prompt" data-prompt="Plan a 5-day trip to Dubai with a budget of $1500">
+                                    <i class="fas fa-arrow-right"></i> Plan a 5-day trip to Dubai with a budget of $1500
+                                </div>
+                                <div class="example-prompt" data-prompt="What's the best family vacation package for Bali under $3000?">
+                                    <i class="fas fa-arrow-right"></i> What's the best family vacation package for Bali under $3000?
+                                </div>
+                                <div class="example-prompt" data-prompt="Create a luxury weekend getaway to Jeddah for 2 people">
+                                    <i class="fas fa-arrow-right"></i> Create a luxury weekend getaway to Jeddah for 2 people
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="option-card" data-type="cars">
+                            <div class="option-icon">
+                                <i class="fas fa-car"></i>
+                            </div>
+                            <h3 class="en">Car Rentals</h3>
+                            <h3 class="ar">تأجير سيارات</h3>
+                            <p class="en">Find the perfect rental car for your journey</p>
+                            <p class="ar">ابحث عن سيارة الإيجار المثالية لرحلتك</p>
+                            <div class="example-prompts">
+                                <div class="example-prompt" data-prompt="I need an SUV in Dubai for 5 days starting next Friday">
+                                    <i class="fas fa-arrow-right"></i> I need an SUV in Dubai for 5 days starting next Friday
+                                </div>
+                                <div class="example-prompt" data-prompt="What's the cheapest compact car available in Riyadh this weekend?">
+                                    <i class="fas fa-arrow-right"></i> What's the cheapest compact car available in Riyadh this weekend?
+                                </div>
+                                <div class="example-prompt" data-prompt="Find a luxury car rental in Jeddah with unlimited mileage">
+                                    <i class="fas fa-arrow-right"></i> Find a luxury car rental in Jeddah with unlimited mileage
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Chat Messages -->
+                <div class="messages" id="chat-messages">
+                    <!-- Messages will be added here by JavaScript -->
+                </div>
+                
+                <!-- Typing Indicator -->
+                <div class="typing-indicator" id="typing-indicator">
+                    <div class="typing-avatar">
+                        <svg width="30" height="30" viewBox="0 0 30 30" xmlns="http://www.w3.org/2000/svg">
+                            <circle cx="15" cy="15" r="15" fill="#10a37f"/>
+                            <path d="M8,15 L22,15 M15,8 L15,22" stroke="white" stroke-width="2" stroke-linecap="round"/>
+                        </svg>
+                    </div>
+                    <div class="typing-dots">
+                        <span></span>
+                        <span></span>
+                        <span></span>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Input Area -->
+            <div class="input-container">
+                <div class="input-box">
+                    <textarea id="user-input" placeholder="Message Travel Assistant..." data-ar-placeholder="مراسلة مساعد السفر..."></textarea>
+                    <button id="send-btn">
+                        <i class="fas fa-paper-plane"></i>
+                    </button>
+                </div>
+                <div class="input-footer">
+                    <p class="en">© 2025 Rahalah - AI-powered travel planning SaaS</p>
+                    <p class="ar">© 2025 رحلة - منصة الذكاء الاصطناعي لتخطيط السفر</p>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <script src="js/script.js"></script>
+</body>
+</html>
