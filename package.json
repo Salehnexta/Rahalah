@@ -1,0 +1,35 @@
+{
+  "name": "rahalah",
+  "version": "1.0.0",
+  "description": "[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node server.py",
+    "mcp": "SERVER_KEY=ijfxbgm92itgcn npx mcprouter"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://Salehnexta@github.com/Salehnexta/Rahalah.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/Salehnexta/Rahalah/issues"
+  },
+  "homepage": "https://github.com/Salehnexta/Rahalah#readme",
+  "dependencies": {
+    "@automatalabs/mcp-server-playwright": "^1.2.1",
+    "@supabase/supabase-js": "^2.49.4",
+    "body-parser": "^2.2.0",
+    "cors": "^2.8.5",
+    "express": "^5.1.0",
+    "express-session": "^1.18.1",
+    "mcprouter": "^0.1.5",
+    "playwright": "^1.51.1"
+  },
+  "devDependencies": {
+    "@playwright/test": "^1.51.1"
+  }
+}

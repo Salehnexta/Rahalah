@@ -1,0 +1,237 @@
+/**
+ * Rahalah Travel App - Chat-Centric Filters
+ * Styling for conversational filter experience
+ */
+
+/* Filter Options in Chat */
+.filter-options {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+    margin-top: 12px;
+}
+
+.filter-option-btn {
+    background-color: #f5f9ff;
+    border: 1px solid #e0e7ff;
+    border-radius: 20px;
+    padding: 8px 15px;
+    font-size: 14px;
+    color: #4a6fa1;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    display: flex;
+    align-items: center;
+    gap: 6px;
+}
+
+.filter-option-btn:hover {
+    background-color: #e0e7ff;
+    border-color: #c5d1ff;
+}
+
+.filter-option-btn i {
+    font-size: 12px;
+    color: #10a37f;
+}
+
+/* Active Filter Tags */
+.active-filter-tags {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+    margin: 10px 0;
+}
+
+.filter-tag {
+    background-color: #e0f2ff;
+    border-radius: 16px;
+    padding: 5px 12px;
+    font-size: 13px;
+    color: #0077cc;
+    display: flex;
+    align-items: center;
+    gap: 6px;
+}
+
+.filter-tag i {
+    font-size: 10px;
+}
+
+.filter-tag .remove-tag {
+    background: none;
+    border: none;
+    color: #0077cc;
+    cursor: pointer;
+    font-size: 12px;
+    margin-left: 4px;
+    padding: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+/* Price Range Input in Chat */
+.chat-price-range {
+    margin: 15px 0;
+    width: 100%;
+    max-width: 300px;
+}
+
+.chat-price-range-inputs {
+    display: flex;
+    gap: 10px;
+    margin-top: 8px;
+}
+
+.chat-price-input {
+    flex: 1;
+    position: relative;
+}
+
+.chat-price-input input {
+    width: 100%;
+    padding: 8px 8px 8px 24px;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    font-size: 14px;
+}
+
+.chat-price-input span {
+    position: absolute;
+    left: 8px;
+    top: 50%;
+    transform: translateY(-50%);
+    color: #666;
+}
+
+/* Star Rating Options in Chat */
+.chat-star-options {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+    margin: 10px 0;
+}
+
+.chat-star-option {
+    display: flex;
+    align-items: center;
+    padding: 6px 12px;
+    background-color: #f5f5f5;
+    border-radius: 16px;
+    cursor: pointer;
+    transition: all 0.2s;
+}
+
+.chat-star-option:hover {
+    background-color: #e0e0e0;
+}
+
+.chat-star-option.selected {
+    background-color: #fff8e0;
+    color: #e6a700;
+}
+
+.chat-star-option i {
+    color: #ffc107;
+    margin-left: 4px;
+}
+
+/* Amenity Options in Chat */
+.chat-amenity-options {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+    margin: 10px 0;
+}
+
+.chat-amenity-option {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    padding: 6px 12px;
+    background-color: #f5f5f5;
+    border-radius: 16px;
+    cursor: pointer;
+    transition: all 0.2s;
+}
+
+.chat-amenity-option:hover {
+    background-color: #e0e0e0;
+}
+
+.chat-amenity-option.selected {
+    background-color: #e0f7f5;
+    color: #00a99d;
+}
+
+.chat-amenity-option i {
+    color: #00a99d;
+}
+
+/* Location Input in Chat */
+.chat-location-input {
+    margin: 15px 0;
+    width: 100%;
+    max-width: 300px;
+}
+
+.chat-location-input input {
+    width: 100%;
+    padding: 10px 12px 10px 36px;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    font-size: 14px;
+}
+
+.chat-location-input-wrapper {
+    position: relative;
+}
+
+.chat-location-input-wrapper i {
+    position: absolute;
+    left: 12px;
+    top: 50%;
+    transform: translateY(-50%);
+    color: #666;
+}
+
+/* Apply Button in Chat */
+.chat-apply-filters {
+    background-color: #10a37f;
+    color: white;
+    border: none;
+    border-radius: 4px;
+    padding: 8px 16px;
+    font-size: 14px;
+    cursor: pointer;
+    transition: background-color 0.2s;
+    margin-top: 10px;
+}
+
+.chat-apply-filters:hover {
+    background-color: #0d8c6d;
+}
+
+/* Results Count */
+.results-count {
+    font-size: 14px;
+    color: #666;
+    margin: 10px 0;
+}
+
+/* Responsive Styles */
+@media (max-width: 768px) {
+    .filter-options {
+        flex-direction: column;
+        align-items: flex-start;
+    }
+    
+    .filter-option-btn {
+        width: 100%;
+    }
+    
+    .chat-price-range-inputs {
+        flex-direction: column;
+    }
+}

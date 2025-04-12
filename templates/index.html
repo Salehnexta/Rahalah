@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Rahalah - Flight Search</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+</head>
+<body>
+    <div class="container">
+        <div class="search-container">
+            <h1>Flight Search</h1>
+            <form id="flight-search-form" class="search-form">
+                <div class="form-group">
+                    <label for="departure-airport">Departure</label>
+                    <input type="text" id="departure-airport" name="departure_id" placeholder="Enter departure airport">
+                </div>
+
+                <div class="form-group">
+                    <label for="arrival-airport">Arrival</label>
+                    <input type="text" id="arrival-airport" name="arrival_id" placeholder="Enter arrival airport">
+                </div>
+
+                <div class="form-group">
+                    <label for="outbound-date">Outbound Date</label>
+                    <input type="date" id="outbound-date" name="outbound_date">
+                </div>
+
+                <div class="form-group">
+                    <label>Flight Type</label>
+                    <select id="flight-type" name="flight_type">
+                        <option value="one_way">One Way</option>
+                        <option value="round_trip">Round Trip</option>
+                    </select>
+                </div>
+
+                <div class="price-range">
+                    <label>Price Range</label>
+                    <div id="price-slider"></div>
+                    <div class="price-values">
+                        <span id="min-price">0</span>
+                        <span id="max-price">1000</span>
+                    </div>
+                </div>
+
+                <div class="stops-filter">
+                    <label>Stops</label>
+                    <select id="stops-filter">
+                        <option value="any">Any Stops</option>
+                        <option value="non_stop">Non-stop</option>
+                        <option value="one_stop">1 Stop</option>
+                        <option value="two_stops">2 Stops</option>
+                    </select>
+                </div>
+
+                <div class="airlines-filter">
+                    <label>Airlines</label>
+                    <div class="airline-selection">
+                        <input type="text" id="airline-search" placeholder="Search airlines...">
+                        <div id="airline-suggestions"></div>
+                    </div>
+                </div>
+
+                <div class="cabin-class">
+                    <label>Cabin Class</label>
+                    <div>
+                        <input type="radio" id="cabin-economy" name="cabin-class" value="economy" checked>
+                        <label for="cabin-economy">Economy</label>
+                        <input type="radio" id="cabin-business" name="cabin-class" value="business">
+                        <label for="cabin-business">Business</label>
+                        <input type="radio" id="cabin-first" name="cabin-class" value="first">
+                        <label for="cabin-first">First Class</label>
+                    </div>
+                </div>
+
+                <div class="time-preferences">
+                    <label>Departure Time</label>
+                    <div>
+                        <input type="radio" id="time-any" name="departure-time" value="any" checked>
+                        <label for="time-any">Any Time</label>
+                        <input type="radio" id="time-morning" name="departure-time" value="morning">
+                        <label for="time-morning">Morning</label>
+                        <input type="radio" id="time-afternoon" name="departure-time" value="afternoon">
+                        <label for="time-afternoon">Afternoon</label>
+                        <input type="radio" id="time-evening" name="departure-time" value="evening">
+                        <label for="time-evening">Evening</label>
+                    </div>
+                </div>
+
+                <button type="submit" class="search-button">Search Flights</button>
+            </form>
+
+            <div id="flight-results" class="results-container"></div>
+        </div>
+    </div>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/nouislider/15.7.0/nouislider.min.js"></script>
+    <script src="{{ url_for('static', filename='js/flight-search.js') }}"></script>
+</body>
+</html>

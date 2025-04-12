@@ -1,0 +1,253 @@
+/**
+ * Rahalah Travel App - Responsive Styles
+ * Enhanced mobile responsiveness for better user experience
+ */
+
+/* Base Mobile Styles */
+@media (max-width: 768px) {
+    /* Main Layout */
+    .app-container {
+        flex-direction: column;
+    }
+    
+    .main-content {
+        width: 100%;
+        margin-left: 0;
+    }
+    
+    /* Messages Area */
+    .messages {
+        padding: 10px;
+    }
+    
+    .message {
+        padding: 15px 10px;
+    }
+    
+    /* Search Results */
+    .result-card {
+        padding: 12px;
+    }
+    
+    .result-header {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 5px;
+    }
+    
+    .result-details {
+        flex-direction: column;
+        align-items: flex-start;
+    }
+    
+    .result-actions {
+        flex-direction: column;
+        width: 100%;
+    }
+    
+    .result-btn {
+        width: 100%;
+        text-align: center;
+    }
+    
+    /* Welcome Screen */
+    .welcome-content {
+        padding: 20px;
+    }
+    
+    .welcome-header {
+        flex-direction: column;
+        text-align: center;
+    }
+    
+    .conversation-options {
+        flex-direction: column;
+    }
+    
+    .option-card {
+        width: 100%;
+        margin-bottom: 15px;
+    }
+    
+    /* Auth Modals */
+    .auth-modal-content {
+        width: 90%;
+        max-width: 400px;
+        padding: 15px;
+    }
+    
+    /* Chat Input */
+    .chat-input-container {
+        padding: 10px;
+    }
+    
+    #user-input, #user-input-ar {
+        font-size: 14px;
+    }
+    
+    /* Search Filters */
+    .search-filters {
+        max-height: 70vh;
+    }
+}
+
+/* Small Mobile Devices */
+@media (max-width: 480px) {
+    .message-avatar {
+        width: 30px;
+        height: 30px;
+        font-size: 14px;
+        margin-right: 10px;
+    }
+    
+    .message-content h4 {
+        font-size: 14px;
+    }
+    
+    .message-content p {
+        font-size: 14px;
+    }
+    
+    .chat-input-container {
+        flex-wrap: wrap;
+    }
+    
+    #filter-toggle {
+        margin-bottom: 10px;
+    }
+    
+    #user-input, #user-input-ar {
+        width: calc(100% - 50px);
+    }
+    
+    /* Auth Forms */
+    .auth-form-group {
+        margin-bottom: 15px;
+    }
+    
+    .auth-form-group label {
+        font-size: 14px;
+    }
+    
+    .auth-form-group input {
+        padding: 8px;
+        font-size: 14px;
+    }
+}
+
+/* Landscape Mode */
+@media (max-height: 500px) and (orientation: landscape) {
+    .welcome-container {
+        overflow-y: auto;
+    }
+    
+    .welcome-content {
+        padding: 15px;
+    }
+    
+    .conversation-options {
+        flex-direction: row;
+        flex-wrap: wrap;
+        justify-content: center;
+    }
+    
+    .option-card {
+        width: calc(50% - 20px);
+        margin: 10px;
+    }
+    
+    /* Auth Modals */
+    .auth-modal-content {
+        max-height: 90vh;
+        overflow-y: auto;
+    }
+    
+    /* Search Filters */
+    .search-filters {
+        max-height: 80vh;
+    }
+}
+
+/* Tablet Devices */
+@media (min-width: 769px) and (max-width: 1024px) {
+    .sidebar {
+        width: 220px;
+    }
+    
+    .main-content {
+        width: calc(100% - 220px);
+        margin-left: 220px;
+    }
+    
+    .option-card {
+        padding: 15px;
+    }
+    
+    .result-card {
+        padding: 15px;
+    }
+}
+
+/* Dark Mode Support */
+@media (prefers-color-scheme: dark) {
+    body.dark-mode {
+        --bg-color: #1a1a1a;
+        --sidebar-bg: #2a2a2a;
+        --text-color: #f0f0f0;
+        --light-text: #b0b0b0;
+        --border-color: #3a3a3a;
+        --hover-color: #333333;
+        --message-ai-bg: #2a2a2a;
+        --message-human-bg: #333333;
+        --shadow-color: rgba(0, 0, 0, 0.2);
+    }
+    
+    body.dark-mode .option-card {
+        background-color: #2a2a2a;
+    }
+    
+    body.dark-mode .result-card {
+        background-color: #2a2a2a;
+    }
+    
+    body.dark-mode .notification {
+        background-color: #2a2a2a;
+        box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+    }
+}
+
+/* RTL Support for Arabic */
+body.rtl .mobile-menu-toggle {
+    left: auto;
+    right: 15px;
+}
+
+body.rtl .sidebar {
+    transform: translateX(100%);
+}
+
+body.rtl .sidebar.active {
+    transform: translateX(0);
+}
+
+body.rtl .message-avatar {
+    margin-right: 0;
+    margin-left: 15px;
+}
+
+body.rtl .result-actions {
+    justify-content: flex-start;
+}
+
+body.rtl .filter-toggle {
+    margin-right: 0;
+    margin-left: 10px;
+}
+
+/* Accessibility Improvements */
+@media (prefers-reduced-motion: reduce) {
+    * {
+        transition: none !important;
+        animation: none !important;
+    }
+}
