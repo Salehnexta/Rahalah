@@ -651,6 +651,8 @@ document.addEventListener('DOMContentLoaded', function() {
         }
     });
     
+
+    
     // Auto-resize textarea as user types
     userInput.addEventListener('input', () => {
         userInput.style.height = 'auto';
