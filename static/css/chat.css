@@ -154,6 +154,11 @@ body {
     background-color: var(--sidebar-button-hover);
 }
 
+.sidebar-item.active {
+    background-color: var(--sidebar-button-hover);
+    border-left: 3px solid #10a37f;
+}
+
 .item-icon {
     width: 24px;
     height: 24px;
@@ -168,6 +173,53 @@ body {
 
 .item-icon.document {
     background-color: transparent;
+}
+
+/* Chat History styles */
+.history-list {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+    margin-top: 8px;
+}
+
+.history-item {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 10px 12px;
+    border-radius: 6px;
+    cursor: pointer;
+    font-size: 13px;
+    color: var(--text-sidebar);
+    overflow: hidden;
+    transition: background-color 0.2s;
+}
+
+.history-item:hover {
+    background-color: var(--sidebar-button-hover);
+}
+
+.history-title {
+    flex: 1;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.history-delete {
+    opacity: 0;
+    font-size: 16px;
+    padding: 0 4px;
+    transition: opacity 0.2s;
+}
+
+.history-item:hover .history-delete {
+    opacity: 0.7;
+}
+
+.history-delete:hover {
+    opacity: 1;
 }
 
 /* Main content styles */
@@ -286,7 +338,7 @@ body {
     gap: 8px;
 }
 
-.attachment-button, #send-button, .send-button {
+.attachment-button {
     background: none;
     border: none;
     color: var(--text-secondary);
@@ -299,8 +351,30 @@ body {
     transition: color 0.2s;
 }
 
-.attachment-button:hover, #send-button:hover {
+#send-button, .send-button {
+    background-color: var(--primary-button);
+    color: white;
+    border: none;
+    border-radius: 4px;
+    padding: 8px 12px;
+    cursor: pointer;
+    font-size: 14px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: background-color 0.2s, transform 0.1s;
+}
+
+.attachment-button:hover {
     color: var(--text-primary);
+}
+
+#send-button:hover, .send-button:hover {
+    background-color: var(--primary-button-hover);
+}
+
+#send-button:active, .send-button:active {
+    transform: scale(0.97);
 }
 
 #send-button svg {
@@ -350,6 +424,32 @@ body {
     gap: 4px;
     align-items: center;
     padding: 16px;
+}
+
+/* Suggestion prompts styles */
+.suggestions-container {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+    margin: 10px 0 20px 0;
+    padding: 0 16px;
+}
+
+.suggestion-prompt {
+    background-color: var(--bg-secondary);
+    border: 1px solid var(--border-light);
+    border-radius: 20px;
+    padding: 8px 16px;
+    font-size: 14px;
+    color: var(--text-primary);
+    cursor: pointer;
+    transition: all 0.2s ease;
+}
+
+.suggestion-prompt:hover {
+    background-color: #e9f7f2;
+    border-color: #10a37f;
+    transform: translateY(-2px);
 }
 
 .loading-dot {

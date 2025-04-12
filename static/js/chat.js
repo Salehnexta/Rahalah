@@ -3,9 +3,55 @@ document.addEventListener('DOMContentLoaded', function() {
     const messageInput = document.getElementById('message-input');
     const messagesContainer = document.getElementById('messages-container');
     const newChatButton = document.getElementById('new-chat-btn');
+    const sidebarItems = document.querySelectorAll('.sidebar-item');
+    const chatHistory = document.getElementById('chat-history');
+    
+    // Load saved chats from localStorage if any exist
+    loadChatHistory();
     
     // Add welcome message
     addSystemMessage("Hello! I am your Rahalah travel assistant. How can I help you plan your journey today?");
+    
+    // Add suggestion prompts
+    addSuggestionPrompts(["Find flights from Riyadh to Dubai", 
+                       "Find hotels in Makkah for next weekend", 
+                       "What's the cheapest flight to Jeddah?", 
+                       "I need a 5-star hotel in Madinah"]);
+    
+    // Add click event handlers to sidebar items
+    sidebarItems.forEach(item => {
+        item.addEventListener('click', function() {
+            // Remove active class from all sidebar items
+            sidebarItems.forEach(i => i.classList.remove('active'));
+            
+            // Add active class to clicked item
+            this.classList.add('active');
+            
+            // Get the category from the item name
+            const category = this.querySelector('.item-name').textContent.trim();
+            
+            // Handle different categories
+            switch(category) {
+                case 'Flights':
+                    // Clear chat and show flights-specific message
+                    messagesContainer.innerHTML = '';
+                    addSystemMessage("Looking for flights? Tell me your departure city, destination, and dates, and I'll find the best options for you.");
+                    break;
+                    
+                case 'Hotels':
+                    // Clear chat and show hotels-specific message
+                    messagesContainer.innerHTML = '';
+                    addSystemMessage("Need a place to stay? Let me know your destination, dates, and preferences, and I'll recommend the perfect accommodations.");
+                    break;
+                    
+                case 'Travel Plans':
+                    // Clear chat and show travel plans interface
+                    messagesContainer.innerHTML = '';
+                    addSystemMessage("Here are your saved travel plans. You can manage your itineraries here or start planning a new trip.");
+                    break;
+            }
+        });
+    });
     
     chatForm.addEventListener('submit', function(e) {
         e.preventDefault();
@@ -16,16 +62,96 @@ document.addEventListener('DOMContentLoaded', function() {
         }
     });
     
+    // Initialize current chat tracking
+    let currentChatId = null;
+    let currentChatTitle = null;
+    let savedChats = {};
+    
+    // Load saved chats from localStorage
+    function loadChatHistory() {
+        const saved = localStorage.getItem('rahalah_chat_history');
+        if (saved) {
+            savedChats = JSON.parse(saved);
+            updateChatHistoryUI();
+        }
+    }
+    
+    // Save new chat to history
+    function saveChatToHistory(chatId, title) {
+        savedChats[chatId] = {
+            title: title,
+            timestamp: new Date().toISOString(),
+            preview: title
+        };
+        localStorage.setItem('rahalah_chat_history', JSON.stringify(savedChats));
+        updateChatHistoryUI();
+    }
+    
+    // Update the chat history UI in sidebar
+    function updateChatHistoryUI() {
+        chatHistory.innerHTML = '';
+        
+        // Sort chats by timestamp (newest first)
+        const sortedChats = Object.entries(savedChats)
+            .sort((a, b) => new Date(b[1].timestamp) - new Date(a[1].timestamp));
+            
+        sortedChats.forEach(([id, chat]) => {
+            const chatItem = document.createElement('div');
+            chatItem.className = 'history-item';
+            chatItem.innerHTML = `
+                <span class="history-title">${chat.title}</span>
+                <span class="history-delete" data-id="${id}">×</span>
+            `;
+            
+            // Add click event to load this chat
+            chatItem.addEventListener('click', function(e) {
+                if (!e.target.matches('.history-delete')) {
+                    // Logic to load this chat would go here
+                    // For now, just start a new chat with the title
+                    currentChatId = id;
+                    messagesContainer.innerHTML = '';
+                    addSystemMessage(`Continuing your conversation about: ${chat.title}`);
+                }
+            });
+            
+            // Add delete functionality
+            const deleteBtn = chatItem.querySelector('.history-delete');
+            deleteBtn.addEventListener('click', function(e) {
+                e.stopPropagation();
+                delete savedChats[id];
+                localStorage.setItem('rahalah_chat_history', JSON.stringify(savedChats));
+                updateChatHistoryUI();
+            });
+            
+            chatHistory.appendChild(chatItem);
+        });
+    }
+    
     newChatButton.addEventListener('click', function() {
-        // Clear chat history
+        // Clear chat display
         messagesContainer.innerHTML = '';
+        // Reset current chat tracking
+        currentChatId = null;
+        currentChatTitle = null;
         // Add welcome message again
         addSystemMessage("Hello! I am your Rahalah travel assistant. How can I help you plan your journey today?");
+        // Add suggestion prompts
+        addSuggestionPrompts(["Find flights from Riyadh to Dubai", 
+                           "Find hotels in Makkah for next weekend", 
+                           "What's the cheapest flight to Jeddah?", 
+                           "I need a 5-star hotel in Madinah"]);
     });
     
     function sendMessage(message) {
         // Add user message to chat
         addUserMessage(message);
+        
+        // Create chat ID for new conversations if needed
+        if (!currentChatId) {
+            currentChatId = 'chat_' + Date.now();
+            currentChatTitle = message.substring(0, 30) + (message.length > 30 ? '...' : '');
+            saveChatToHistory(currentChatId, currentChatTitle);
+        }
         
         // Show loading indicator
         const loadingDiv = document.createElement('div');
@@ -109,6 +235,31 @@ document.addEventListener('DOMContentLoaded', function() {
         `;
         messagesContainer.appendChild(messageDiv);
         messagesContainer.scrollTop = messagesContainer.scrollHeight;
+    }
+    
+    function addSuggestionPrompts(suggestions) {
+        const suggestionsDiv = document.createElement('div');
+        suggestionsDiv.className = 'suggestions-container';
+        
+        suggestions.forEach(suggestion => {
+            const suggestionButton = document.createElement('button');
+            suggestionButton.className = 'suggestion-prompt';
+            suggestionButton.textContent = suggestion;
+            
+            // Add click event to use this suggestion
+            suggestionButton.addEventListener('click', function() {
+                messageInput.value = suggestion;
+                sendMessage(suggestion);
+                // Remove suggestions after one is clicked
+                if (suggestionsDiv.parentNode) {
+                    suggestionsDiv.parentNode.removeChild(suggestionsDiv);
+                }
+            });
+            
+            suggestionsDiv.appendChild(suggestionButton);
+        });
+        
+        messagesContainer.appendChild(suggestionsDiv);
     }
     
     function formatFlightOption(flight) {

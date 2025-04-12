@@ -4,8 +4,11 @@ import requests
 from dotenv import load_dotenv
 import json
 import logging
+import traceback
+import time
 from agents.agent_factory import AgentFactory
 from datetime import datetime
+from utils.debug import DebugConfig, performance_timer, capture_request, capture_response, log_agent_selection, logger as debug_logger
 
 # Configure logging
 logging.basicConfig(level=logging.INFO, format='%(asctime)s - %(name)s - %(levelname)s - %(message)s')
@@ -40,9 +43,13 @@ def index():
     return render_template('chat.html')
 
 @app.route('/process_message', methods=['POST'])
+@capture_request
+@capture_response
+@performance_timer
 def process_message():
     """Process a chat message through the agent system."""
     try:
+        request_start_time = time.time()
         if not request.is_json:
             logger.error("Request is not JSON")
             return jsonify({'error': 'Request must be JSON'}), 400
@@ -63,8 +70,15 @@ def process_message():
         agent_scores = master_agent._analyze_request(user_message)
         logger.info(f"Agent scores: {agent_scores}")
         
+        # Log agent selection for debugging
+        top_agent = max(agent_scores.items(), key=lambda x: x[1])[0] if agent_scores else None
+        log_agent_selection(agent_scores, top_agent)
+        
         # Process the request
+        process_start_time = time.time()
         response = master_agent.process_request(user_message)
+        process_duration = time.time() - process_start_time
+        debug_logger.debug(f"Request processing completed in {process_duration:.4f}s")
         
         # Extract the flight, hotel, or package results based on response type
         flight_results = []
@@ -168,6 +182,74 @@ def search_flights():
             'error': f'An error occurred: {str(e)}'
         }), 500
 
+# Enable debug routes if debug mode is enabled
+if os.environ.get('RAHALAH_DEBUG', 'false').lower() in ('true', '1', 'yes'):
+    @app.route('/debug/config', methods=['GET', 'POST'])
+    def debug_config():
+        """View and update debug configuration."""
+        # Get only serializable configuration values
+        config_dict = {
+            'enabled': DebugConfig.enabled,
+            'log_level': DebugConfig.log_level,
+            'trace_requests': DebugConfig.trace_requests,
+            'performance_monitoring': DebugConfig.performance_monitoring,
+            'log_agent_selection': DebugConfig.log_agent_selection,
+            'log_agent_confidence': DebugConfig.log_agent_confidence,
+            'log_to_console': DebugConfig.log_to_console,
+            'log_to_file': DebugConfig.log_to_file,
+            'max_log_files': DebugConfig.max_log_files,
+            'enable_request_capture': DebugConfig.enable_request_capture,
+            'enable_response_capture': DebugConfig.enable_response_capture
+        }
+        
+        if request.method == 'POST' and request.is_json:
+            config_updates = request.get_json()
+            DebugConfig.configure(**config_updates)
+            return jsonify({
+                'status': 'success',
+                'message': 'Debug configuration updated',
+                'config': config_dict
+            })
+        
+        return jsonify({
+            'status': 'success',
+            'config': config_dict
+        })
+    
+    @app.route('/debug/logs', methods=['GET'])
+    def debug_logs():
+        """View recent debug logs."""
+        debug_dir = os.path.join(os.path.dirname(__file__), 'debug_logs')
+        if not os.path.exists(debug_dir):
+            return jsonify({'error': 'Debug logs directory not found'}), 404
+            
+        log_files = [f for f in os.listdir(debug_dir) if f.endswith('.log')]
+        log_files.sort(key=lambda f: os.path.getmtime(os.path.join(debug_dir, f)), reverse=True)
+        
+        logs = []
+        for log_file in log_files[:5]:  # Show only 5 most recent logs
+            file_path = os.path.join(debug_dir, log_file)
+            file_size = os.path.getsize(file_path)
+            logs.append({
+                'filename': log_file,
+                'size': file_size,
+                'created': datetime.fromtimestamp(os.path.getctime(file_path)).isoformat(),
+                'url': url_for('debug_log_content', filename=log_file)
+            })
+            
+        return jsonify({
+            'status': 'success',
+            'logs': logs
+        })
+    
+    @app.route('/debug/logs/<filename>', methods=['GET'])
+    def debug_log_content(filename):
+        """View content of a specific log file."""
+        debug_dir = os.path.join(os.path.dirname(__file__), 'debug_logs')
+        return send_from_directory(debug_dir, filename)
+
 if __name__ == '__main__':
+    # Log system startup
+    debug_logger.info(f"Rahalah server starting with debugging enabled at {datetime.now().isoformat()}")
     print(f"Rahalah server started at http://localhost:{PORT}")
     app.run(port=PORT, debug=True)
